@@ -1,6 +1,9 @@
 import { Mongo } from 'meteor/mongo';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import { Random } from 'meteor/random';
+import SimpleSchema from 'simpl-schema';
 import faker from 'faker';
+
+import { Gardens } from '../gardens/gardens.js';
 
 export const Plants = new Mongo.Collection('plants');
 
@@ -13,7 +16,7 @@ Plants.deny({
 Plants.schema = new SimpleSchema({
 	_id:{
 		type:String,
-		regEx: SimpleSchema.RegEx.Id,
+		regEx:SimpleSchema.RegEx.Id,
 	},
 	name:{
 		type:String,
@@ -28,43 +31,51 @@ Plants.schema = new SimpleSchema({
 		type:Number,
 		min:0,
 		max:50,
-		decimal:true,
 		defaultValue:0.5,
 	},
 	posX:{
 		type:Number,
-		decimal:true,
 		defaultValue:0,
 	},
 	posY:{
 		type:Number,
-		decimal:true,
 		defaultValue:0,
 	},
 	height:{
 		type:Number,
 		min:0,
 		max:100,
-		decimal:true,
 		defaultValue:1.0,
 	},
 	plantationYear:{
-		type:Number,
+		type:SimpleSchema.Integer,
 		optional:true,
+	},
+	gardenId:{
+		type:String,
+		regEx:SimpleSchema.RegEx.Id,
 	},
 	createdAt: {
       type: Date,
-      denyUpdate: true,
+      optional:true,
+      autoValue:function(){
+      	if (this.isInsert && !this.isSet){
+      		return new Date();
+      	}
+      }
     },
-    userId: { 
-   	  type: String,
-   	  regEx: SimpleSchema.RegEx.Id,
-   },
+    userId: {
+    	type:String,
+		regEx:SimpleSchema.RegEx.Id,
+    }
 });
+
 
 Plants.attachSchema(Plants.schema);
 
 Factory.define('plant', Plants, {
   name: () => faker.lorem.word(),
+  gardenId: () => Factory.get('garden'),
+  userId: () => Random.id(),
   createdAt: () => new Date(),
 });

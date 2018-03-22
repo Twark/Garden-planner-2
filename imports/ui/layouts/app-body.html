@@ -1,0 +1,21 @@
+<template name="App_body">
+	{{#if currentUser}}
+          <div class="btns-group-vertical">
+              <a href="#" class="js-logout btn-secondary">
+                {{_ 'layouts.appBody.logout'}}
+              </a>
+          </div>
+     {{else}}
+          <div class="btns-group">
+            <a href="{{pathFor 'signin'}}" class="btn-secondary">
+              {{_ 'layouts.appBody.login'}}
+            </a>
+            <a href="{{pathFor 'join'}}" class="btn-secondary">
+              {{_ 'layouts.appBody.join'}}
+            </a>
+          </div>
+        {{/if}}
+	 <div id="content-container">
+     	{{> Template.dynamic template=main}}
+     </div>
+</template>

@@ -1,0 +1,18 @@
+{
+  "layouts": {
+    "appBody": {
+      "logout": "Logout",
+      "login": "Sign In",
+      "join": "Join",
+      "newList": "New List",
+      "newListError": "Could not create list.",
+      "tryingToConnect": "Trying to connect",
+      "connectionIssue": "There seems to be a connection issue"
+    }
+  },
+  "pages": {
+    "appNotFound": {
+      "pageNotFound": "Page not found"
+    }
+  }
+}
