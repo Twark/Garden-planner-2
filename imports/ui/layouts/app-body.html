@@ -1,5 +1,5 @@
 <template name="App_body">
-	{{#if currentUser}}
+  {{#if currentUser}}
           <div class="btns-group-vertical">
               <a href="#" class="js-logout btn-secondary">
                 {{_ 'layouts.appBody.logout'}}
@@ -15,7 +15,9 @@
             </a>
           </div>
         {{/if}}
+   {{#if isMenuOpen}}
+   {{/if}}
 	 <div id="content-container">
      	{{> Template.dynamic template=main}}
-     </div>
+     </div>                                                                                                            
 </template>
