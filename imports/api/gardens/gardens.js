@@ -18,6 +18,7 @@ Gardens.schema = new SimpleSchema({
 	},
 	name:{
 		type:String,
+    min:1,
 		max:100,
 	},
 	createdAt: {

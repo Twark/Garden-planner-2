@@ -5,7 +5,8 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
 import '../../ui/layouts/app-body.js';
 import '../../ui/pages/app-not-found.js';
-import '../../ui/pages/gardens/gardens-show-page.js'
+import '../../ui/pages/gardens/gardens-list-page.js'
+import '../../ui/pages/gardens/gardens-menu-page.js'
 
 // Import to override accounts templates
 import '../../ui/accounts/accounts-templates.js';
@@ -13,7 +14,7 @@ import '../../ui/accounts/accounts-templates.js';
 FlowRouter.route('/', {
   name: 'App.home',
   action() {
-    BlazeLayout.render('App_body', { main: 'Gardens_show_page' });
+    BlazeLayout.render('App_body', { main: 'Gardens_list_page' });
   },
 });
 

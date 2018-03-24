@@ -1,0 +1,39 @@
+<template name="Gardens_list_page">
+	<div class="ui grid">
+		<div class="ui four wide column"></div>
+		<div class="ui eight wide column">
+			<div class="ui segment">
+				<div class="conteneur">
+					<button id="add_garden" class="ui right floated icon basic mini button">
+	   					 <i class="plus square outline icon"></i>
+	   					 Ajouter
+	  				</button>
+					<h3 class="ui left floated header">
+	   					 Mes jardins
+	  				</h3>
+  				</div>
+  				<div id="add_garden_form" class="ui segment" style="display: none;">
+					<form class="ui form">
+		 				<div class="field">
+		    				<label>Nom du jardin</label>
+		    				<input type="text" name="garden_name" placeholder="Nom du jardin">
+		  				</div>
+		  				<button class="ui primary button" type="submit">Valider</button>.
+		  				<button class="ui button" type="cancel">Annuler</button>
+					</form>
+				</div>
+			</div>
+			
+
+			<div class="ui segment">
+				<div class="ui celled list">
+	  				{{#each gardens}}
+	    				<div class="item">{{name}}</div>
+	  				{{/each}}
+	  			</div>
+  			</div>
+	  	
+		</div>
+		<div class="ui four wide column"></div>
+	</div>
+</template>

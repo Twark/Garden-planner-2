@@ -1,0 +1,14 @@
+<template name="gardens_menu_page">
+	<div class="ui accordion raised inverted segment">
+		<div class="title">
+			<i class="dropdown icon"></i>
+			Mes jardins
+		</div>
+		<div class="content">
+	   		<p>A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.</p>
+	   		{{#each garden in gardens}}
+				<li>{{name}}</li>li>
+			{{/each}}
+	   	</div>
+	</div>
+</template>

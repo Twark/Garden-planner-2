@@ -5,7 +5,6 @@ import { _ } from 'meteor/underscore';
 
 import { Gardens } from './gardens.js';
 
-
 export const insertGarden = new ValidatedMethod({
   name: 'gardens.insert',
   validate: Gardens.simpleSchema().omit('_id','userId','createdAt').validator({ 
