@@ -5,9 +5,8 @@
 			Mes jardins
 		</div>
 		<div class="content">
-	   		<p>A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.</p>
-	   		{{#each garden in gardens}}
-				<li>{{name}}</li>li>
+	   		{{#each gardens}}
+				<li><a href="/gardens/{{_id}}">{{name}}</a></li>
 			{{/each}}
 	   	</div>
 	</div>

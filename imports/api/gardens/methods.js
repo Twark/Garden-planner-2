@@ -43,7 +43,33 @@ export const removeGarden = new ValidatedMethod({
       }
       Gardens.remove({_id:params._id});
     }
-    
-
   }
 });
+
+const publicKeys  = ['name']
+
+export const updateGarden = new ValidatedMethod({
+  name: 'garden.update',
+  validate: function(params){
+    if (_.difference(_.keys(_.omit(params,'_id')),publicKeys).length>0) {
+      throw new Meteor.Error('gardens.update.wrongArgument',
+        'Cannot update non-public garden attributes');
+    }
+    return Gardens.simpleSchema().validate(params,{
+      keys:_.intersection(_.keys(params),publicKeys),
+    })
+  },
+  run(params){
+    const garden = Gardens.findOne(params._id);
+    const cleanedParams = _.omit(params,'_id');
+    if (!this.userId) {
+      throw new Meteor.Error('gardens.update.accessDenied',
+        'Cannot update garden public attributes when not logged in');
+    }
+    if (garden.userId!==this.userId) {
+      throw new Meteor.Error('gardens.update.accessDenied',
+        'Cannot update garden public attributes for another userId');
+    }
+    Gardens.update(garden._id,{$set:cleanedParams});
+  }
+})

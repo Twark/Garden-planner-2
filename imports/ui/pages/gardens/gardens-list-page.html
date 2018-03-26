@@ -14,9 +14,19 @@
   				</div>
   				<div id="add_garden_form" class="ui segment" style="display: none;">
 					<form class="ui form">
+						{{#if errors "general"}}
+							<div class="ui red basic label">
+						    	{{errors "general"}}
+						    </div>
+						{{/if}}
 		 				<div class="field">
 		    				<label>Nom du jardin</label>
 		    				<input type="text" name="garden_name" placeholder="Nom du jardin">
+	    					{{#if errors "name"}}
+								<div class="ui pointing red basic label">
+									{{errors "name"}}
+								</div>
+							{{/if}}	
 		  				</div>
 		  				<button class="ui primary button" type="submit">Valider</button>.
 		  				<button class="ui button" type="cancel">Annuler</button>
@@ -28,7 +38,38 @@
 			<div class="ui segment">
 				<div class="ui celled list">
 	  				{{#each gardens}}
-	    				<div class="item">{{name}}</div>
+	    				<div class="item">
+	    					{{#if is_garden_edit}}
+	    						<form id="edit_garden_form" class="ui form">
+	    							{{#if errors "general"}}
+										<div class="ui red basic label">
+									    	{{errors "general"}}
+									    </div>
+									{{/if}}
+		    						<div class="field">
+										<input name="garden_name" type="text" value={{name}}>
+										{{#if errors "name"}}
+											<div class="ui pointing red basic label">
+										    	{{errors "name"}}
+										    </div>
+								    	{{/if}}					
+									</div>
+									<button class="ui primary mini button validate_edit_garden" type="submit">Valider</button>.
+									<button class="ui mini button cancel_edit_garden" type="cancel">Annuler</button>
+			  					</form>
+	    					{{else}}
+	    						<a href="/gardens/{{_id}}">{{name}}</a>
+	    						<button class="ui right floated icon basic mini button remove_garden">
+			   						<i class="trash alternate outline icon"></i>
+			   						Supprimer
+			  					</button>
+			    				<button class="ui right floated icon basic mini button toggle_edit_garden">
+			   						<i class="edit icon"></i>
+			   						Editer
+			  					</button>
+	    					{{/if}}
+		    				
+	  					</div>
 	  				{{/each}}
 	  			</div>
   			</div>

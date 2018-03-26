@@ -5,7 +5,7 @@ import { Random } from 'meteor/random';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 import faker from 'faker';
 
-import { insertGarden, removeGarden } from '../methods.js';
+import { insertGarden, removeGarden, updateGarden } from '../methods.js';
 import { Gardens } from '../gardens.js';
 import './publications.js';
 
@@ -89,6 +89,20 @@ describe('gardens',function(){
 					Meteor.Error,/gardens.insert.accessDenied/);
 				done();
 			});
+			it('cannot insert a garden with an empty name',function(done){
+				const context = {userId:ownerId};
+				const name = "";
+				const args = {
+					name : name,
+				};
+				assert.throw(
+					() => {
+						insertGarden._execute(context,args);
+					},
+					Error,"Name is required"
+				);
+				done();
+			})
 		});
 		describe('removeGarden',function(){
 			let ownerId;
@@ -123,6 +137,42 @@ describe('gardens',function(){
 				);
 				done();
 			})
+		});
+		describe('updateGarden',function () {
+			let ownerId;
+			let ownerGardenId;
+			beforeEach(function(){
+				ownerId = Random.id();
+				ownerGardenId = Factory.create('garden',{userId:ownerId})._id;
+			});
+			it('can update the owner garden',function(done){
+				const context = {userId:ownerId};
+				const newName = faker.lorem.word();
+				updateGarden._execute(context,{_id:ownerGardenId,name:newName});
+				assert.equal(Gardens.findOne(ownerGardenId).name,newName);
+				done();
+			});
+			it('cannot update a garden when not logged in',function(done){
+				const context = {}
+				assert.throws(
+					() => {
+						updateGarden._execute(context,{_id:ownerGardenId});
+					},
+					Meteor.Error,/gardens.update.accessDenied/
+				);
+				done();
+			});
+			it('cannot update another user garden',function(done){
+				const context = {userId : Random.id()};
+				assert.throws(
+					() => {
+						updateGarden._execute(context,{_id:ownerGardenId});
+					},
+					Meteor.Error,/gardens.update.accessDenied/
+				);
+				done();
+			})
+
 		})
 	});
 });

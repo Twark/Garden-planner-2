@@ -7,4 +7,17 @@ import './gardens-menu-page.html';
 
 Template.gardens_menu_page.onRendered(function(){
 	$('.ui.accordion').accordion();
+	
+})
+
+Template.gardens_menu_page.onCreated(function(){
+	this.autorun(() => {
+		this.subscribe('gardens');
+	});
+});
+
+Template.gardens_menu_page.helpers({
+	gardens(){
+		return Gardens.find({});
+	},
 })
