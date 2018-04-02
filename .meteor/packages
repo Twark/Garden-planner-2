@@ -35,3 +35,6 @@ accounts-ui
 semantic:ui
 less
 juliancwirko:postcss
+hwillson:stub-collections
+practicalmeteor:sinon
+velocity:meteor-stubs

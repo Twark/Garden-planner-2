@@ -38,7 +38,7 @@
 			<div class="ui segment">
 				<div class="ui celled list">
 	  				{{#each gardens}}
-	    				<div class="item">
+	    				<div class="item garden_item {{#if is_garden_edit}}editing{{/if}}">
 	    					{{#if is_garden_edit}}
 	    						<form id="edit_garden_form" class="ui form">
 	    							{{#if errors "general"}}
@@ -47,7 +47,7 @@
 									    </div>
 									{{/if}}
 		    						<div class="field">
-										<input name="garden_name" type="text" value={{name}}>
+										<input name="edit_garden_name" type="text" value={{name}}>
 										{{#if errors "name"}}
 											<div class="ui pointing red basic label">
 										    	{{errors "name"}}
